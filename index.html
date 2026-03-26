@@ -215,17 +215,14 @@ function submitOrder() {
   var params = new URLSearchParams({
     date:    new Date().toLocaleString('hi-IN'),
     name:    name,
-    phone:   document.getElementById('f_phone').value.trim(),
+    phone:   phone,
     age:     document.getElementById('f_age').value.trim(),
     weight:  document.getElementById('f_weight').value.trim(),
     height:  document.getElementById('f_height').value.trim(),
     problem: document.getElementById('f_problem').value.trim(),
     address: address
   });
-  fetch(scriptURL + '?' + params.toString(), {
-    method: 'GET',
-    mode: 'no-cors'
-  })
+  fetch(scriptURL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' })
   .then(function() { showThankYou(); })
   .catch(function() { showThankYou(); });
 }
