@@ -223,6 +223,12 @@ function submitOrder() {
 function showThankYou() {
   document.getElementById('orderForm').style.display = 'none';
   document.getElementById('thankYouMsg').style.display = 'block';
+
+  // ✅ Meta Purchase Event
+  if (typeof fbq !== 'undefined') {
+    fbq('track', 'Purchase', { value: 999, currency: 'INR' });
+  }
+
   ['f_name','f_phone','f_age','f_weight','f_height','f_problem','f_address'].forEach(function(id){
     document.getElementById(id).value = '';
   });
