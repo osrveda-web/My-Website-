@@ -163,30 +163,39 @@ img{width:100%;display:block;}
 <div id="orderModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:9999;justify-content:center;align-items:center;padding:15px;box-sizing:border-box;">
   <div style="background:#fff;border-radius:16px;padding:25px;max-width:420px;width:100%;max-height:90vh;overflow-y:auto;position:relative;">
     <button onclick="document.getElementById('orderModal').style.display='none'" style="position:absolute;top:10px;right:15px;background:none;border:none;font-size:24px;cursor:pointer;color:#333;">✕</button>
+
     <div id="thankYouMsg" style="display:none;text-align:center;padding:20px;">
       <div style="font-size:60px;">🎉</div>
       <h2 style="color:#e53935;font-size:22px;margin:10px 0;">शुक्रिया!</h2>
       <p style="color:#333;font-size:16px;">आपका Order Book हो गया है।<br>हमारे <strong>Vaid Ji</strong> जल्द ही आपको <strong>Call करेंगे।</strong></p>
       <button onclick="document.getElementById('orderModal').style.display='none';document.getElementById('thankYouMsg').style.display='none';document.getElementById('orderForm').style.display='block';" style="margin-top:15px;background:#e53935;color:#fff;border:none;padding:10px 25px;border-radius:8px;font-size:15px;cursor:pointer;">ठीक है</button>
     </div>
+
     <div id="orderForm">
       <h2 style="text-align:center;color:#e53935;font-size:20px;margin-bottom:20px;">📋 Order Form भरें</h2>
-   
-   <label style="font-size:14px;font-weight:600;color:#333;">नाम (Name) *</label>
+
+      <label style="font-size:14px;font-weight:600;color:#333;">नाम (Name) *</label>
       <input type="text" id="f_name" placeholder="अपना नाम लिखें" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
+
       <label style="font-size:14px;font-weight:600;color:#333;">फ़ोन (Phone) *</label>
       <input type="tel" id="f_phone" placeholder="10 अंक का नंबर" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
+
       <label style="font-size:14px;font-weight:600;color:#333;">उम्र (Age)</label>
       <input type="number" id="f_age" placeholder="उम्र लिखें" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
+
       <label style="font-size:14px;font-weight:600;color:#333;">वजन (Weight)</label>
       <input type="text" id="f_weight" placeholder="जैसे: 70kg" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
+
       <label style="font-size:14px;font-weight:600;color:#333;">ऊंचाई (Height)</label>
       <input type="text" id="f_height" placeholder="जैसे: 5'7&quot;" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
-      <label style="font-size:14px;font-weight:600;color:#333;">ऊंचाई (Height)</label> <input type="text" id="f_height" placeholder="जैसे: 5'7&quot;" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;"> ```
+
+      <label style="font-size:14px;font-weight:600;color:#333;">समस्या (Problem)</label>
       <textarea id="f_problem" placeholder="अपनी समस्या लिखें" rows="3" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;resize:none;"></textarea>
+
       <label style="font-size:14px;font-weight:600;color:#333;">पता (Address) *</label>
       <textarea id="f_address" placeholder="पूरा पता लिखें" rows="3" style="width:100%;padding:10px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;resize:none;"></textarea>
-      <button onclick="submitOrder()" style="width:100%;padding:14px;background:linear-gradient(135deg,#e53935,#b71c1c);color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;margin-top:5px;">✅ Order Submit करें</button>-top:5px;">✅ Order Submit करें</button>
+
+      <button onclick="submitOrder()" style="width:100%;padding:14px;background:linear-gradient(135deg,#e53935,#b71c1c);color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;margin-top:5px;">✅ Order Submit करें</button>
     </div>
   </div>
 </div>
@@ -196,21 +205,24 @@ function submitOrder() {
   var name = document.getElementById('f_name').value.trim();
   var phone = document.getElementById('f_phone').value.trim();
   var address = document.getElementById('f_address').value.trim();
+
   if (!name) { alert('कृपया नाम भरें!'); return; }
   if (!phone || phone.length < 10) { alert('कृपया सही फ़ोन नंबर भरें!'); return; }
   if (!address) { alert('कृपया पता भरें!'); return; }
-  var data = {
-    date: new Date().toLocaleString('hi-IN'),
-    name: name,
-    phone: phone,
-    age: document.getElementById('f_age').value,
-    weight: document.getElementById('f_weight').value,
-  height: document.getElementById('f_height').value,
-    address: address
-  };
+
+  var formData = new FormData();
+  formData.append('date', new Date().toLocaleString('hi-IN'));
+  formData.append('name', name);
+  formData.append('phone', phone);
+  formData.append('age', document.getElementById('f_age').value);
+  formData.append('weight', document.getElementById('f_weight').value);
+  formData.append('height', document.getElementById('f_height').value);
+  formData.append('problem', document.getElementById('f_problem').value);
+  formData.append('address', address);
+
   fetch('https://script.google.com/macros/s/AKfycbwBF2t_p5xhuWvkTZ5GkrGztzciG3RIJzZ5sK2nGldlNzmPNcJwcssUmBta244xkUO3/exec', {
     method: 'POST',
-    body: JSON.stringify(data)
+    body: formData
   }).then(function() {
     document.getElementById('orderForm').style.display = 'none';
     document.getElementById('thankYouMsg').style.display = 'block';
